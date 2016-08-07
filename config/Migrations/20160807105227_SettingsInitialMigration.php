@@ -1,22 +1,12 @@
 <?php
 use Migrations\AbstractMigration;
 
-class CroogoSettingsInitialMigration extends AbstractMigration
+class SettingsInitialMigration extends AbstractMigration
 {
-
-    public $autoId = false;
-
     public function up()
     {
-        $table = $this->table('languages');
-        $table
-            ->addColumn('id', 'integer', [
-                'autoIncrement' => true,
-                'default' => null,
-                'limit' => 11,
-                'null' => false,
-            ])
-            ->addPrimaryKey(['id'])
+
+        $this->table('languages')
             ->addColumn('title', 'string', [
                 'default' => null,
                 'limit' => 255,
@@ -33,7 +23,7 @@ class CroogoSettingsInitialMigration extends AbstractMigration
                 'null' => false,
             ])
             ->addColumn('status', 'boolean', [
-                'default' => 1,
+                'default' => true,
                 'limit' => null,
                 'null' => false,
             ])
@@ -64,15 +54,7 @@ class CroogoSettingsInitialMigration extends AbstractMigration
             ])
             ->create();
 
-        $table = $this->table('settings');
-        $table
-            ->addColumn('id', 'integer', [
-                'autoIncrement' => true,
-                'default' => null,
-                'limit' => 20,
-                'null' => false,
-            ])
-            ->addPrimaryKey(['id'])
+        $this->table('settings')
             ->addColumn('key', 'string', [
                 'default' => null,
                 'limit' => 64,
@@ -99,7 +81,7 @@ class CroogoSettingsInitialMigration extends AbstractMigration
                 'null' => false,
             ])
             ->addColumn('editable', 'boolean', [
-                'default' => 1,
+                'default' => true,
                 'limit' => null,
                 'null' => false,
             ])
@@ -140,7 +122,6 @@ class CroogoSettingsInitialMigration extends AbstractMigration
                 ['unique' => true]
             )
             ->create();
-
     }
 
     public function down()
