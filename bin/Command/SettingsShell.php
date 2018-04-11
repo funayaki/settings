@@ -15,6 +15,8 @@
  * @license  http://www.opensource.org/licenses/mit-license.php The MIT License
  * @link     http://www.croogo.org
  */
+namespace Console\Command;
+
 
 class SettingsShell extends AppShell {
 
@@ -126,7 +128,7 @@ class SettingsShell extends AppShell {
 		));
 		$this->out("Settings: ", 2);
 		foreach ($settings as $data) {
-			$this->out(__d('croogo', "    %-30s: %s", $data['Setting']['key'], $data['Setting']['value']));
+			$this->out(__d('croogo', "    %-30s: {0}", $data['Setting']['key'], $data['Setting']['value']));
 		}
 		$this->out();
 	}
@@ -147,15 +149,15 @@ class SettingsShell extends AppShell {
 				'Setting.key' => $key,
 			),
 		));
-		$this->out(__d('croogo', 'Updating %s', $key), 2);
+		$this->out(__d('croogo', 'Updating {0}', $key), 2);
 		$ask = __d('croogo', "Confirm update");
 		if ($setting || $this->params['create']) {
 			$text = '-';
 			if ($setting) {
-				$text = __d('croogo', '- %s', $setting['Setting']['value']);
+				$text = __d('croogo', '- {0}', $setting['Setting']['value']);
 			}
 			$this->warn($text);
-			$this->success(__d('croogo', '+ %s', $val));
+			$this->success(__d('croogo', '+ {0}', $val));
 			if ('y' == $this->in($ask, array('y', 'n'), 'n')) {
 				$keys = array(
 					'title' => null, 'description' => null,
@@ -168,7 +170,7 @@ class SettingsShell extends AppShell {
 				$this->warn(__d('croogo', 'Cancelled'));
 			}
 		} else {
-			$this->warn(__d('croogo', 'Key: %s not found', $key));
+			$this->warn(__d('croogo', 'Key: {0} not found', $key));
 		}
 	}
 
@@ -186,7 +188,7 @@ class SettingsShell extends AppShell {
 				'Setting.key' => $key,
 			),
 		));
-		$this->out(__d('croogo', 'Deleting %s', $key), 2);
+		$this->out(__d('croogo', 'Deleting {0}', $key), 2);
 		$ask = __d('croogo', 'Delete?');
 		if ($setting) {
 			if ('y' == $this->in($ask, array('y', 'n'), 'n')) {
@@ -196,7 +198,7 @@ class SettingsShell extends AppShell {
 				$this->warn(__d('croogo', 'Cancelled'));
 			}
 		} else {
-			$this->warn(__d('croogo', 'Key: %s not found', $key));
+			$this->warn(__d('croogo', 'Key: {0} not found', $key));
 		}
 	}
 
@@ -204,7 +206,7 @@ class SettingsShell extends AppShell {
  * Update Croogo.version in settings.json
  */
 	public function update_version_info() {
-		$gitDir = realpath(CakePlugin::path('Croogo') . '..') . DS . '.git';
+		$gitDir = realpath(Plugin::path('Croogo') . '..') . DS . '.git';
 		if (!file_exists($gitDir)) {
 			$this->err('Git repository not found');
 			return false;

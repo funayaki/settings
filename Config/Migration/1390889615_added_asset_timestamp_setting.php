@@ -1,6 +1,7 @@
 <?php
 
-App::uses('DataMigration', 'Extensions.Utility');
+
+namespace Config\Migration;
 
 class AddedAssetTimestampSetting extends CakeMigration {
 
@@ -39,13 +40,13 @@ class AddedAssetTimestampSetting extends CakeMigration {
 
 		if ($direction === 'up') {
 			if (Configure::read('Croogo.installed')) {
-				CakePlugin::load('Install');
+				Plugin::load('Install');
 				$dm = new DataMigration();
-				$dir = CakePlugin::path('Install') . 'Config' . DS . 'Data' . DS;
+				$dir = Plugin::path('Install') . 'Config' . DS . 'Data' . DS;
 				$dm->loadFile($dir . 'SettingData.php', array(
 					'extract' => sprintf('{n}[key=%s]',$this->_assetTimestamp),
 				));
-				CakePlugin::unload('Install');
+				Plugin::unload('Install');
 			}
 		} else {
 			$Setting = ClassRegistry::init('Settings.Setting');

@@ -1,5 +1,7 @@
 <?php
 
+namespace Config;
+
 CroogoNav::add('sidebar', 'settings', array(
 	'icon' => 'cog',
 	'title' => __d('croogo', 'Settings'),

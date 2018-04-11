@@ -1,5 +1,7 @@
 <?php
 
+namespace Config\Schema;
+
 class SettingsSchema extends CakeSchema {
 
 	public function before($event = array()) {

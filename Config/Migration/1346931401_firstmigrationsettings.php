@@ -1,5 +1,7 @@
 <?php
 
+namespace Config\Migration;
+
 class FirstMigrationSettings extends CakeMigration {
 
 /**

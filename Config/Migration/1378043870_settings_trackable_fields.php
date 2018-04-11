@@ -1,5 +1,7 @@
 <?php
 
+namespace Config\Migration;
+
 class SettingsTrackableFields extends CakeMigration {
 
 /**

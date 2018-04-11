@@ -1,6 +1,5 @@
 <?php
 
-App::uses('AppHelper', 'View/Helper');
 
 /**
  * SettingForms Helper
@@ -12,6 +11,8 @@ App::uses('AppHelper', 'View/Helper');
  * @license  http://www.opensource.org/licenses/mit-license.php The MIT License
  * @link     http://www.croogo.org
  */
+namespace View\Helper;
+
 class SettingsFormHelper extends AppHelper {
 
 	public $helpers = array(

@@ -1,6 +1,7 @@
 <?php
 
-App::uses('DataMigration', 'Extensions.Utility');
+
+namespace Config\Migration;
 
 class ExposeSiteThemeAndLocaleAndHomeUrl extends CakeMigration {
 
@@ -40,15 +41,15 @@ class ExposeSiteThemeAndLocaleAndHomeUrl extends CakeMigration {
 				$settingsToUpdate = array(
 					'Site.locale', 'Site.admin_theme', 'Site.home_url',
 				);
-				CakePlugin::load('Install');
+				Plugin::load('Install');
 				$dm = new DataMigration();
-				$dir = CakePlugin::path('Install') . 'Config' . DS . 'Data' . DS;
+				$dir = Plugin::path('Install') . 'Config' . DS . 'Data' . DS;
 				foreach ($settingsToUpdate as $key) {
 					$dm->loadFile($dir . 'SettingData.php', array(
 						'extract' => sprintf('{n}[key=%s]', $key)
 					));
 				}
-				CakePlugin::unload('Install');
+				Plugin::unload('Install');
 			}
 		}
 

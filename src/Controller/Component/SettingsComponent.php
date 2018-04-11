@@ -1,6 +1,5 @@
 <?php
 
-App::uses('Component', 'Controller');
 
 /**
  * Settings Component
@@ -11,6 +10,8 @@ App::uses('Component', 'Controller');
  * @license  http://www.opensource.org/licenses/mit-license.php The MIT License
  * @link     http://www.croogo.org
  */
+namespace Controller\Component;
+
 class SettingsComponent extends Component {
 
 /**

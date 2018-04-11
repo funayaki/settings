@@ -1,33 +1,33 @@
 <?php
-App::uses('Setting', 'Settings.Model');
-App::uses('CroogoTestCase', 'Croogo.TestSuite');
+
+namespace Test\Case\Model;
 
 class SettingTest extends CroogoTestCase {
 
 	public $fixtures = array(
-		'plugin.users.aco',
-		'plugin.users.aro',
-		'plugin.users.aros_aco',
-		'plugin.blocks.block',
-		'plugin.comments.comment',
-		'plugin.contacts.contact',
-		'plugin.translate.i18n',
-		'plugin.settings.language',
-		'plugin.menus.link',
-		'plugin.menus.menu',
-		'plugin.contacts.message',
-		'plugin.meta.meta',
-		'plugin.nodes.node',
-		'plugin.taxonomy.model_taxonomy',
-		'plugin.blocks.region',
-		'plugin.users.role',
-		'plugin.settings.setting',
-		'plugin.taxonomy.taxonomy',
-		'plugin.taxonomy.term',
-		'plugin.taxonomy.type',
-		'plugin.taxonomy.types_vocabulary',
-		'plugin.users.user',
-		'plugin.taxonomy.vocabulary',
+		'plugin.users.acos',
+		'plugin.users.aros',
+		'plugin.users.aros_acos',
+		'plugin.blocks.blocks',
+		'plugin.comments.comments',
+		'plugin.contacts.contacts',
+		'plugin.translate.i18ns',
+		'plugin.settings.languages',
+		'plugin.menus.links',
+		'plugin.menus.menus',
+		'plugin.contacts.messages',
+		'plugin.meta.metas',
+		'plugin.nodes.nodes',
+		'plugin.taxonomy.model_taxonomies',
+		'plugin.blocks.regions',
+		'plugin.users.roles',
+		'plugin.settings.settings',
+		'plugin.taxonomy.taxonomies',
+		'plugin.taxonomy.terms',
+		'plugin.taxonomy.types',
+		'plugin.taxonomy.types_vocabularies',
+		'plugin.users.users',
+		'plugin.taxonomy.vocabularies'
 	);
 
 	public function setUp() {

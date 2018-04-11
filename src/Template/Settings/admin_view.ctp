@@ -41,7 +41,7 @@
 <div class="actions">
 	<ul>
 		<li><?php echo $this->Html->link(__d('croogo', 'Edit Setting'), array('action' => 'edit', $setting['Setting']['id'])); ?> </li>
-		<li><?php echo $this->Form->postLink(__d('croogo', 'Delete Setting'), array('action' => 'delete', $setting['Setting']['id']), null, __d('croogo', 'Are you sure you want to delete # %s?', $setting['Setting']['id'])); ?> </li>
+		<li><?php echo $this->Form->postLink(__d('croogo', 'Delete Setting'), array('action' => 'delete', $setting['Setting']['id']), null, __d('croogo', 'Are you sure you want to delete # {0}?', $setting['Setting']['id'])); ?> </li>
 		<li><?php echo $this->Html->link(__d('croogo', 'List Settings'), array('action' => 'index')); ?> </li>
 		<li><?php echo $this->Html->link(__d('croogo', 'New Setting'), array('action' => 'add')); ?> </li>
 	</ul>

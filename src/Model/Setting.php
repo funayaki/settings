@@ -1,7 +1,5 @@
 <?php
 
-App::uses('AppModel', 'Model');
-App::uses('File', 'Utility');
 
 /**
  * Setting
@@ -13,6 +11,8 @@ App::uses('File', 'Utility');
  * @license  http://www.opensource.org/licenses/mit-license.php The MIT License
  * @link     http://www.croogo.org
  */
+namespace Model;
+
 class Setting extends SettingsAppModel {
 
 /**
@@ -103,7 +103,7 @@ class Setting extends SettingsAppModel {
  *
  * @return void
  */
-	public function afterDelete() {
+	public function afterDelete(Event $event, Entity $entity, ArrayObject $options) {
 		$this->updateJson();
 		$this->writeConfiguration();
 	}

@@ -1,6 +1,5 @@
 <?php
 
-App::uses('AppController', 'Controller');
 
 /**
  * Settings Application controller
@@ -12,6 +11,8 @@ App::uses('AppController', 'Controller');
  * @license  http://www.opensource.org/licenses/mit-license.php The MIT License
  * @link     http://www.croogo.org
  */
+namespace Controller;
+
 class SettingsAppController extends AppController {
 
 }

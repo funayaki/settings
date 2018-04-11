@@ -1,6 +1,5 @@
 <?php
 
-App::uses('SettingsAppController', 'Settings.Controller');
 
 /**
  * Settings Controller
@@ -12,6 +11,8 @@ App::uses('SettingsAppController', 'Settings.Controller');
  * @license  http://www.opensource.org/licenses/mit-license.php The MIT License
  * @link     http://www.croogo.org
  */
+namespace Controller;
+
 class SettingsController extends SettingsAppController {
 
 /**
@@ -162,7 +163,7 @@ class SettingsController extends SettingsAppController {
  * @access public
  */
 	public function admin_prefix($prefix = null) {
-		$this->set('title_for_layout', __d('croogo', 'Settings: %s', $prefix));
+		$this->set('title_for_layout', __d('croogo', 'Settings: {0}', $prefix));
 
 		$this->Setting->Behaviors->attach('Croogo.Params');
 		if (!empty($this->request->data) && $this->Setting->saveAll($this->request->data['Setting'])) {
