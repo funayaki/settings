@@ -42,7 +42,7 @@ class AddedAssetTimestampSetting extends CakeMigration {
 			if (Configure::read('Croogo.installed')) {
 				Plugin::load('Install');
 				$dm = new DataMigration();
-				$dir = Plugin::path('Install') . 'Config' . DS . 'Data' . DS;
+				$dir = Plugin::path('Install') . 'config' . DS . 'Data' . DS;
 				$dm->loadFile($dir . 'SettingData.php', array(
 					'extract' => sprintf('{n}[key=%s]',$this->_assetTimestamp),
 				));

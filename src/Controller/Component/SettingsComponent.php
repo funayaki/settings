@@ -10,21 +10,26 @@
  * @license  http://www.opensource.org/licenses/mit-license.php The MIT License
  * @link     http://www.croogo.org
  */
-namespace Controller\Component;
+namespace Settings\Controller\Component;
 
-class SettingsComponent extends Component {
+use Cake\Controller\Component;
+use Controller;
 
-/**
- * @var Controller
- */
-	protected $_controller;
+class SettingsComponent extends Component
+{
 
-/**
- * startup
- */
-	public function startup(Controller $controller) {
-		$this->_controller = $controller;
-		$controller->loadModel('Settings.Setting');
-	}
+    /**
+     * @var Controller
+     */
+    protected $_controller;
+
+    /**
+     * startup
+     */
+    public function startup(Controller $controller)
+    {
+        $this->_controller = $controller;
+        $controller->loadModel('Settings.Setting');
+    }
 
 }

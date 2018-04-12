@@ -43,7 +43,7 @@ class ExposeSiteThemeAndLocaleAndHomeUrl extends CakeMigration {
 				);
 				Plugin::load('Install');
 				$dm = new DataMigration();
-				$dir = Plugin::path('Install') . 'Config' . DS . 'Data' . DS;
+				$dir = Plugin::path('Install') . 'config' . DS . 'Data' . DS;
 				foreach ($settingsToUpdate as $key) {
 					$dm->loadFile($dir . 'SettingData.php', array(
 						'extract' => sprintf('{n}[key=%s]', $key)

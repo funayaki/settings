@@ -1,8 +1,9 @@
 <?php
+namespace Settings\Test\TestCase\Controller;
 
-namespace Test\Case\Controller;
+use Cake\TestSuite\IntegrationTestCase;
 
-class LanguagesControllerTest extends CroogoControllerTestCase {
+class LanguagesControllerTest extends IntegrationTestCase {
 
 	public $fixtures = array(
 		'plugin.users.acos',
