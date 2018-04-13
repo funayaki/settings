@@ -84,14 +84,7 @@ class SettingsTable extends Table
      */
     public function afterSave(Event $event, EntityInterface $entity, ArrayObject $options)
     {
-
         $this->connection()->driver()->autoQuoting(false);
-        if ($entity->key == 'Access Control.rowLevel') {
-            if ($entity->value == true && $entity->_original['value'] == false) {
-                $aclGenerator = new AclGenerator();
-                $aclGenerator->syncContentAcos();
-            }
-        }
     }
 
     /**
