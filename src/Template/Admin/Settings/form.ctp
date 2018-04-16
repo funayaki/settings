@@ -1,6 +1,7 @@
 <?php
 /**
  * @var \App\View\AppView $this
+ * @var \Settings\Model\Entity\Setting $setting
  */
 $this->extend('/Common/admin_form');
 
