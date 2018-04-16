@@ -51,33 +51,36 @@ class SettingsTableTest extends TestCase
         parent::tearDown();
     }
 
-    /**
-     * Test initialize method
-     *
-     * @return void
-     */
-    public function testInitialize()
+    public function testWriteNew()
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        $this->Settings->write('Prefix.key', 'value');
+        $prefixAnything = $this->Settings->findByKey('Prefix.key')->first();
+        $this->assertEquals('value', $prefixAnything->value);
     }
 
-    /**
-     * Test validationDefault method
-     *
-     * @return void
-     */
-    public function testValidationDefault()
+    public function testWriteUpdate()
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        $this->Settings->write('Site.title', 'My new site title', ['editable' => 1]);
+        $siteTitle = $this->Settings->findByKey('Site.title')->first();
+        $this->assertEquals('My new site title', $siteTitle->value);
+
+        $this->Settings->write('Site.title', 'My new site title', ['input_type' => 'checkbox']);
+        $siteTitle = $this->Settings->findByKey('Site.title')->first();
+        $this->assertTrue($siteTitle->editable);
+
+        $this->Settings->write('Site.title', 'My new site title', ['input_type' => 'textarea', 'editable' => false]);
+        $siteTitle = $this->Settings->findByKey('Site.title')->first();
+        $this->assertEquals('textarea', $siteTitle->input_type);
+        $this->assertFalse($siteTitle->editable);
     }
 
-    /**
-     * Test buildRules method
-     *
-     * @return void
-     */
-    public function testBuildRules()
+    public function testDeleteKey()
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        $this->Settings->write('Prefix.key', 'value');
+        $this->Settings->deleteKey('Prefix.key');
+        $hasAny = $this->Settings->exists([
+            'key' => 'Prefix.key',
+        ]);
+        $this->assertFalse($hasAny);
     }
 }
