@@ -1,6 +1,7 @@
 <?php
 /**
  * @var \App\View\AppView $this
+ * @var \Settings\Model\Entity\Setting[]|\Cake\Collection\CollectionInterface $settings
  */
 
 use Cake\Utility\Inflector;
