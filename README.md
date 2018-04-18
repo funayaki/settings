@@ -5,12 +5,12 @@ CakePHP database driven settings plugin.
 ## Requirements
 
 - CakePHP 3.x
-- FriendsOfCake/search (see https://github.com/FriendsOfCake/search)
 - ADmad/cakephp-sequence (see https://github.com/ADmad/cakephp-sequence)
+- FriendsOfCake/search (see https://github.com/FriendsOfCake/search)
 
 ```shell
-composer require friendsofcake/search
-composer require admad/cakephp-sequence
+composer require admad/cakephp-sequence:^2.1
+composer require friendsofcake/search:^4.3
 ```
 
 ## Installation

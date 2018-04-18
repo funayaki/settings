@@ -28,8 +28,8 @@
     },
     "require": {
         "php": ">=5.6",
+        "admad/cakephp-sequence": "^2.1",
         "cakephp/cakephp": "~3.5.0",
-        "friendsofcake/search": "dev-master",
-        "admad/cakephp-sequence": "dev-master"
+        "friendsofcake/search": "^4.3"
     }
 }
