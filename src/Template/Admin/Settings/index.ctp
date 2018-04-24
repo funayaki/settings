@@ -3,21 +3,21 @@
  * @var \App\View\AppView $this
  * @var \Settings\Model\Entity\Setting[]|\Cake\Collection\CollectionInterface $settings
  */
-$this->extend('/Common/admin_index');
+use Cake\Core\Configure;
 
-$this->Html
-    ->addCrumb('', '/admin')
-    ->addCrumb(__d('croogo', 'Settings'), array(
-        'admin' => true,
-        'plugin' => 'settings',
-        'controller' => 'settings',
-        'action' => 'index',
-    ));
-if (!empty($this->request->params['named']['p'])) {
-    $this->Html->addCrumb($this->request->params['named']['p']);
-}
+$this->extend('/Common/index');
 
-$this->start('table-heading');
+$this->assign('title', $title_for_layout);
+
+$this->start('breadcrumb');
+$this->Breadcrumbs
+    ->add('<i class="fa fa-dashboard"></i> Home', Configure::read('AdminSite.home_url'))
+    ->add(__d('croogo', 'Settings'), null, ['class' => 'active']);
+
+echo $this->Breadcrumbs->render();
+$this->end();
+
+$this->start('table-head');
 $tableHeaders = $this->Html->tableHeaders(array(
     $this->Paginator->sort('id', __d('croogo', 'Id')),
     $this->Paginator->sort('key', __d('croogo', 'Key')),
@@ -41,7 +41,6 @@ foreach ($settings as $setting):
     $actions[] = $this->Html->link(__d('croogo', 'Edit this item'),
         ['controller' => 'settings', 'action' => 'edit', $setting->id]
     );
-//    $actions[] = $this->Croogo->adminRowActions($setting->id);
     $actions[] = $this->Form->postLink(__d('croogo', 'Remove this item'),
         ['controller' => 'settings', 'action' => 'delete', $setting->id],
         ['confirm' => __d('croogo', 'Are you sure?')]
@@ -61,23 +60,22 @@ foreach ($settings as $setting):
         $setting->id,
         $this->Html->link($keyPrefix, ['controller' => 'settings', 'action' => 'index', '?' => ['key' => $keyPrefix]]) . $keyTitle,
         $this->Text->truncate($setting->value, 20),
-//        $this->Html->status($setting->editable),
-        h($setting->editable),
+        $setting->editable ? $this->Html->tag('span', '', ['class' => 'glyphicon glyphicon-ok']) : '',
         $actions,
     );
 endforeach;
 
-echo $this->Html->tableCells($rows);
+echo $this->Html->tag('tbody', $this->Html->tableCells($rows));
 $this->end();
 
 $this->start('pagination');
 $tags = [];
-$tags[] = $this->Paginator->first('<< ' . __d('croogo', 'first'));
-$tags[] = $this->Paginator->prev('< ' . __d('croogo', 'previous'));
+$tags[] = $this->Paginator->first('<<', ['escape' => false]);
+//$tags[] = $this->Paginator->prev('< ' . __d('croogo', 'previous'));
 $tags[] = $this->Paginator->numbers();
-$tags[] = $this->Paginator->next(__d('croogo', 'next') . ' >');
-$tags[] = $this->Paginator->last(__d('croogo', 'last') . ' >>');
-echo $this->Html->tag('ul', implode('', $tags), ['class' => 'pagination']);
+//$tags[] = $this->Paginator->next(__d('croogo', 'next') . ' >');
+$tags[] = $this->Paginator->last('&raquo;', ['escape' => false]);
+echo $this->Html->tag('ul', implode('', $tags), ['class' => 'pagination pagination-sm no-margin pull-right']);
 $this->end();
 
 $this->start('page_counter');
