@@ -4,13 +4,21 @@
  * @var \Settings\Model\Entity\Setting[]|\Cake\Collection\CollectionInterface $settings
  */
 
+use Cake\Core\Configure;
 use Cake\Utility\Inflector;
 
-$this->extend('/Common/admin_form');
+$this->extend('/Common/form');
 
-$this->Breadcrumbs->add(__d('croogo', 'Settings'),
-    ['plugin' => 'Settings', 'controller' => 'Settings', 'action' => 'index'])
-    ->add($prefix, $this->request->getRequestTarget());
+$this->assign('title', $title_for_layout);
+
+$this->start('breadcrumb');
+$this->Breadcrumbs
+    ->add('<i class="fa fa-dashboard"></i> Home', Configure::read('AdminSite.home_url'))
+    ->add(__d('croogo', 'Settings'), ['action' => 'index'])
+    ->add($title_for_layout, null, ['class' => 'active']);
+
+echo $this->Breadcrumbs->render();
+$this->end();
 
 $this->assign('form-start', $this->Form->create(null, [
     'type' => 'file',
@@ -28,7 +36,8 @@ foreach ($settings as $setting) :
 
     echo $this->SettingsForm->input($setting, $label);
 endforeach;
-echo $this->Form->button(__d('croogo', 'Submit'));
 $this->end();
+
+$this->assign('form-button', $this->Form->button(__d('croogo', 'Submit')));
 
 $this->assign('form-end', $this->Form->end());
