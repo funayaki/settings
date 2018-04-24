@@ -62,8 +62,8 @@ class SettingsTable extends Table
     }
 
     /**
-     * @param Table $schema
-     * @return Table
+     * @param TableSchema $schema
+     * @return TableSchema
      */
     protected function _initializeSchema(TableSchema $schema)
     {
