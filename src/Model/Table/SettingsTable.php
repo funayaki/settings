@@ -76,7 +76,7 @@ class SettingsTable extends Table
      */
     public function beforeSave()
     {
-        $this->connection()->driver()->autoQuoting(true);
+        $this->getConnection()->getDriver()->enableAutoQuoting(true);
     }
 
     /**
@@ -84,7 +84,7 @@ class SettingsTable extends Table
      */
     public function afterSave(Event $event, EntityInterface $entity, ArrayObject $options)
     {
-        $this->connection()->driver()->autoQuoting(false);
+        $this->getConnection()->getDriver()->enableAutoQuoting(false);
     }
 
     /**
