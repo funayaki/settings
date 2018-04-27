@@ -174,7 +174,7 @@ class SettingsController extends AppController
         $this->set('title_for_layout', __d('croogo', 'Settings: {0}', $prefix));
 
         if ($this->request->is('post')) {
-            foreach ($this->request->data() as $inputName => $value) {
+            foreach ($this->request->getData() as $inputName => $value) {
                 $id = str_replace('setting-', '', $inputName);
                 if ($id == '_apply') {
                     continue;
