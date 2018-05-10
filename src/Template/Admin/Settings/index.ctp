@@ -5,60 +5,80 @@
  */
 use Cake\Core\Configure;
 
-$this->assign('subtitle', 'Index');
+$this->extend('/Common/index');
 
-$this->Breadcrumbs->add(__('Settings'), ['action' => 'index']);
-$this->Breadcrumbs->add(__('Index'));
-?>
-<div class="row">
-    <div class="col-xs-12">
-        <div class="box">
-            <div class="box-body table-responsive">
-                <table class="table table-hover">
-                    <thead>
-                    <tr>
-                        <th><?= $this->Paginator->sort('id', __d('croogo', 'Id')) ?></th>
-                        <th><?= $this->Paginator->sort('key', __d('croogo', 'Key')) ?></th>
-                        <th><?= $this->Paginator->sort('value', __d('croogo', 'Value')) ?></th>
-                        <th><?= $this->Paginator->sort('editable', __d('croogo', 'Editable')) ?></th>
-                        <th><?= __d('croogo', 'Actions') ?></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <?php foreach ($settings as $setting): ?>
-                        <?php
-                        $key = $setting->key;
-                        $keyE = explode('.', $key);
-                        $keyPrefix = $keyE['0'];
-                        if (isset($keyE['1'])) {
-                            $keyTitle = '.' . $keyE['1'];
-                        } else {
-                            $keyTitle = '';
-                        }
-                        ?>
-                        <tr>
-                            <td><?= $this->Number->format($setting->id) ?></td>
-                            <td><?= $this->Html->link($keyPrefix, ['controller' => 'settings', 'action' => 'index', '?' => ['key' => $keyPrefix]]) . $keyTitle ?></td>
-                            <td><?= $this->Text->truncate($setting->value, 20) ?></td>
-                            <td><?= $setting->editable ? $this->Html->tag('span', '', ['class' => 'fa fa-check']) : '' ?></td>
-                            <td class="actions" style="white-space:nowrap">
-                                <?= $this->Html->link(__d('croogo', 'Move up'), ['controller' => 'settings', 'action' => 'moveUp', $setting->id], ['class' => 'btn btn-default btn-xs']) ?>
-                                <?= $this->Html->link(__d('croogo', 'Move down'), ['controller' => 'settings', 'action' => 'moveDown', $setting->id], ['class' => 'btn btn-default btn-xs']) ?>
-                                <?= $this->Html->link(__('Edit'), ['action' => 'edit', $setting->id], ['class' => 'btn btn-default btn-xs']) ?>
-                                <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $setting->id], ['confirm' => __('Are you sure you want to delete # {0}?', $setting->id), 'class' => 'btn btn-danger btn-xs']) ?>
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
-                    </tbody>
-                </table>
-            </div>
-            <!-- /.box-body -->
-            <div class="box-footer clearfix">
-                <ul class="pagination pagination-sm no-margin pull-right">
-                    <?php echo $this->Paginator->numbers(); ?>
-                </ul>
-            </div>
-        </div>
-        <!-- /.box -->
-    </div>
-</div>
+$this->assign('title', $title_for_layout);
+
+$this->start('breadcrumb');
+$this->Breadcrumbs
+    ->add('<i class="fa fa-dashboard"></i> Home', Configure::read('AdminSite.home_url'))
+    ->add(__d('croogo', 'Settings'), null, ['class' => 'active']);
+
+echo $this->Breadcrumbs->render();
+$this->end();
+
+$this->start('table-head');
+$tableHeaders = $this->Html->tableHeaders(array(
+    $this->Paginator->sort('id', __d('croogo', 'Id')),
+    $this->Paginator->sort('key', __d('croogo', 'Key')),
+    $this->Paginator->sort('value', __d('croogo', 'Value')),
+    $this->Paginator->sort('editable', __d('croogo', 'Editable')),
+    __d('croogo', 'Actions'),
+));
+echo $this->Html->tag('thead', $tableHeaders);
+$this->end();
+
+$this->start('table-body');
+$rows = [];
+foreach ($settings as $setting):
+    $actions = [];
+    $actions[] = $this->Html->link(__d('croogo', 'Move up'),
+        ['controller' => 'settings', 'action' => 'moveUp', $setting->id]
+    );
+    $actions[] = $this->Html->link(__d('croogo', 'Move down'),
+        ['controller' => 'settings', 'action' => 'moveDown', $setting->id]
+    );
+    $actions[] = $this->Html->link(__d('croogo', 'Edit this item'),
+        ['controller' => 'settings', 'action' => 'edit', $setting->id]
+    );
+    $actions[] = $this->Form->postLink(__d('croogo', 'Remove this item'),
+        ['controller' => 'settings', 'action' => 'delete', $setting->id],
+        ['confirm' => __d('croogo', 'Are you sure?')]
+    );
+
+
+    $key = $setting->key;
+    $keyE = explode('.', $key);
+    $keyPrefix = $keyE['0'];
+    if (isset($keyE['1'])) {
+        $keyTitle = '.' . $keyE['1'];
+    } else {
+        $keyTitle = '';
+    }
+    $actions = $this->Html->div('item-actions', implode(' ', $actions));
+    $rows[] = array(
+        $setting->id,
+        $this->Html->link($keyPrefix, ['controller' => 'settings', 'action' => 'index', '?' => ['key' => $keyPrefix]]) . $keyTitle,
+        $this->Text->truncate($setting->value, 20),
+        $setting->editable ? $this->Html->tag('span', '', ['class' => 'glyphicon glyphicon-ok']) : '',
+        $actions,
+    );
+endforeach;
+
+echo $this->Html->tag('tbody', $this->Html->tableCells($rows));
+$this->end();
+
+$this->start('pagination');
+$tags = [];
+$tags[] = $this->Paginator->first('<<', ['escape' => false]);
+//$tags[] = $this->Paginator->prev('< ' . __d('croogo', 'previous'));
+$tags[] = $this->Paginator->numbers();
+//$tags[] = $this->Paginator->next(__d('croogo', 'next') . ' >');
+$tags[] = $this->Paginator->last('&raquo;', ['escape' => false]);
+echo $this->Html->tag('ul', implode('', $tags), ['class' => 'pagination pagination-sm no-margin pull-right']);
+$this->end();
+
+$this->start('page_counter');
+$pageCounter = $this->Paginator->counter(['format' => __d('croogo', 'Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')]);
+echo $this->Html->tag('p', $pageCounter);
+$this->end();
