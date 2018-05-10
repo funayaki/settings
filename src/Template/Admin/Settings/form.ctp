@@ -4,21 +4,23 @@
  * @var \Settings\Model\Entity\Setting $setting
  */
 use Cake\Core\Configure;
+use Cake\Utility\Inflector;
+
+$action = Inflector::camelize($this->request->getParam('action'));
 
 $this->extend('/Common/form');
 
-$this->assign('form-start', $this->Form->create($setting));
-
-$this->assign('title', $title_for_layout);
+$this->assign('subtitle', $action);
 
 $this->start('breadcrumb');
 $this->Breadcrumbs
-    ->add('<i class="fa fa-dashboard"></i> Home', Configure::read('AdminSite.home_url'))
     ->add(__d('croogo', 'Settings'), ['action' => 'index'])
-    ->add(__d('croogo', $title_for_layout), null, ['class' => 'active']);
+    ->add(__d('croogo', $action), null, ['class' => 'active']);
 
 echo $this->Breadcrumbs->render();
 $this->end();
+
+$this->assign('form-start', $this->Form->create($setting));
 
 $this->start('form-content');
 echo $this->Form->control('key', [
