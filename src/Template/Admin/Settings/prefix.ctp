@@ -9,16 +9,11 @@ use Cake\Utility\Inflector;
 
 $this->extend('/Common/form');
 
-$this->assign('title', $title_for_layout);
+$this->assign('subtitle', $title_for_layout);
 
-$this->start('breadcrumb');
 $this->Breadcrumbs
-    ->add('<i class="fa fa-dashboard"></i> Home', Configure::read('AdminSite.home_url'))
     ->add(__d('croogo', 'Settings'), ['action' => 'index'])
     ->add($title_for_layout, null, ['class' => 'active']);
-
-echo $this->Breadcrumbs->render();
-$this->end();
 
 $this->assign('form-start', $this->Form->create(null, [
     'type' => 'file',
