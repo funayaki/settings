@@ -70,11 +70,11 @@ endforeach;
 echo $this->Html->tag('tbody', $this->Html->tableCells($rows));
 $this->end();
 
-$this->start('pagination');
+$this->start('page-numbers');
 echo $this->Paginator->numbers();
 $this->end();
 
-$this->start('page_counter');
+$this->start('page-counter');
 $pageCounter = $this->Paginator->counter(['format' => __d('croogo', 'Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')]);
 echo $this->Html->tag('p', $pageCounter);
 $this->end();

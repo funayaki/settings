@@ -9,7 +9,7 @@
         <?= $this->fetch('table-body'); ?>
     </table>
     <div class="paginator">
-        <?= $this->fetch('pagination'); ?>
-        <?= $this->fetch('page_counter'); ?>
+        <?= $this->fetch('page-numbers'); ?>
+        <?= $this->fetch('page-counter'); ?>
     </div>
 </div>
