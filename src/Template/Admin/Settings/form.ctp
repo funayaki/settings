@@ -4,57 +4,49 @@
  * @var \Settings\Model\Entity\Setting $setting
  */
 use Cake\Core\Configure;
-use Cake\Utility\Inflector;
 
-$action = Inflector::camelize($this->request->param('action'));
+$this->extend('/Common/form');
 
-$this->assign('subtitle', $action);
+$this->assign('form-start', $this->Form->create($setting));
 
-$this->Breadcrumbs->add(__('Settings'), ['action' => 'index']);
-$this->Breadcrumbs->add(__($action));
-?>
-<div class="row">
-    <!-- left column -->
-    <div class="col-md-12">
-        <!-- general form elements -->
-        <div class="box box-primary">
-            <!-- /.box-header -->
-            <!-- form start -->
-            <?= $this->Form->create($setting, array('role' => 'form')) ?>
-            <div class="box-body">
-                <?php
-                echo $this->Form->control('key', [
-                    'rel' => __d('croogo', "e.g., 'Site.title'"),
-                    'placeholder' => __d('croogo', 'Key'),
-                ]);
-                echo $this->Form->control('value', [
-                    'placeholder' => __d('croogo', 'Value'),
-                ]);
-                echo $this->Form->control('title', [
-                    'placeholder' => __d('croogo', 'Title'),
-                ]);
-                echo $this->Form->control('description', [
-                    'placeholder' => __d('croogo', 'Description'),
-                ]);
-                echo $this->Form->control('input_type', [
-                    'placeholder' => __d('croogo', 'Input Type'),
-                    'rel' => __d('croogo', "e.g., 'text' or 'textarea'"),
-                ]);
-                echo $this->Form->control('editable', [
-                    'label' => __d('croogo', 'Editable'),
-                    'class' => false,
-                ]);
-                echo $this->Form->control('params', [
-                    'placeholder' => __d('croogo', 'Params'),
-                ]);
-                ?>
-            </div>
-            <!-- /.box-body -->
-            <div class="box-footer">
-                <?= $this->Form->button(__d('croogo', 'Submit')) ?>
-            </div>
-            <?= $this->Form->end() ?>
-        </div>
-    </div>
-</div>
+$this->assign('title', $title_for_layout);
 
+$this->start('breadcrumb');
+$this->Breadcrumbs
+    ->add('<i class="fa fa-dashboard"></i> Home', Configure::read('AdminSite.home_url'))
+    ->add(__d('croogo', 'Settings'), ['action' => 'index'])
+    ->add(__d('croogo', $title_for_layout), null, ['class' => 'active']);
+
+echo $this->Breadcrumbs->render();
+$this->end();
+
+$this->start('form-content');
+echo $this->Form->control('key', [
+        'rel' => __d('croogo', "e.g., 'Site.title'"),
+        'placeholder' => __d('croogo', 'Key'),
+    ]) .
+    $this->Form->control('value', [
+        'placeholder' => __d('croogo', 'Value'),
+    ]) .
+    $this->Form->control('title', [
+        'placeholder' => __d('croogo', 'Title'),
+    ]) .
+    $this->Form->control('description', [
+        'placeholder' => __d('croogo', 'Description'),
+    ]) .
+    $this->Form->control('input_type', [
+        'placeholder' => __d('croogo', 'Input Type'),
+        'rel' => __d('croogo', "e.g., 'text' or 'textarea'"),
+    ]) .
+    $this->Form->control('editable', [
+        'label' => __d('croogo', 'Editable'),
+        'class' => false,
+    ]) .
+    $this->Form->control('params', [
+        'placeholder' => __d('croogo', 'Params'),
+    ]);
+$this->end();
+
+$this->assign('form-button', $this->Form->button(__d('croogo', 'Submit')));
+
+$this->assign('form-end', $this->Form->end());
