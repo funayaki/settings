@@ -8,7 +8,7 @@ use Cake\Utility\Inflector;
 
 $action = Inflector::camelize($this->request->getParam('action'));
 
-$this->extend('/Common/index');
+$this->extend('Cirici/AdminLTE./Common/index');
 
 $this->assign('subtitle', $action);
 

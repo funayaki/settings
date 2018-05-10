@@ -3,22 +3,13 @@
  * @var \App\View\AppView $this
  */
 ?>
-<div class="row">
-    <div class="col-xs-12">
-        <div class="box">
-            <div class="box-body table-responsive">
-                <table class="table table-hover">
-                    <?= $this->fetch('table-heading'); ?>
-                    <?= $this->fetch('table-body'); ?>
-                </table>
-            </div>
-            <!-- /.box-body -->
-            <div class="box-footer clearfix">
-                <ul class="pagination pagination-sm no-margin pull-right">
-                    <?= $this->fetch('pagination'); ?>
-                </ul>
-            </div>
-        </div>
-        <!-- /.box -->
+<div class="index large-12 medium-12 columns content">
+    <table cellpadding="0" cellspacing="0">
+        <?= $this->fetch('table-heading'); ?>
+        <?= $this->fetch('table-body'); ?>
+    </table>
+    <div class="paginator">
+        <?= $this->fetch('pagination'); ?>
+        <?= $this->fetch('page_counter'); ?>
     </div>
 </div>

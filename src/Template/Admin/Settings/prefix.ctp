@@ -7,7 +7,7 @@
 use Cake\Core\Configure;
 use Cake\Utility\Inflector;
 
-$this->extend('/Common/form');
+$this->extend('Cirici/AdminLTE./Common/form');
 
 $this->assign('subtitle', $title_for_layout);
 
