@@ -4,15 +4,18 @@
  * @var \Settings\Model\Entity\Setting[]|\Cake\Collection\CollectionInterface $settings
  */
 use Cake\Core\Configure;
+use Cake\Utility\Inflector;
+
+$action = Inflector::camelize($this->request->getParam('action'));
 
 $this->extend('/Common/index');
 
-$this->assign('title', $title_for_layout);
+$this->assign('subtitle', $action);
 
 $this->start('breadcrumb');
 $this->Breadcrumbs
-    ->add('<i class="fa fa-dashboard"></i> Home', Configure::read('AdminSite.home_url'))
-    ->add(__d('croogo', 'Settings'), null, ['class' => 'active']);
+    ->add(__d('croogo', 'Settings'), ['action' => 'index'])
+    ->add($action, null, ['class' => 'active']);
 
 echo $this->Breadcrumbs->render();
 $this->end();
@@ -46,7 +49,6 @@ foreach ($settings as $setting):
         ['confirm' => __d('croogo', 'Are you sure?')]
     );
 
-
     $key = $setting->key;
     $keyE = explode('.', $key);
     $keyPrefix = $keyE['0'];
@@ -61,7 +63,7 @@ foreach ($settings as $setting):
         $this->Html->link($keyPrefix, ['controller' => 'settings', 'action' => 'index', '?' => ['key' => $keyPrefix]]) . $keyTitle,
         $this->Text->truncate($setting->value, 20),
         $setting->editable ? $this->Html->tag('span', '', ['class' => 'glyphicon glyphicon-ok']) : '',
-        $actions,
+        [$actions, ['class' => 'actions', 'style' => 'white-space:nowrap']],
     );
 endforeach;
 
@@ -69,13 +71,7 @@ echo $this->Html->tag('tbody', $this->Html->tableCells($rows));
 $this->end();
 
 $this->start('pagination');
-$tags = [];
-$tags[] = $this->Paginator->first('<<', ['escape' => false]);
-//$tags[] = $this->Paginator->prev('< ' . __d('croogo', 'previous'));
-$tags[] = $this->Paginator->numbers();
-//$tags[] = $this->Paginator->next(__d('croogo', 'next') . ' >');
-$tags[] = $this->Paginator->last('&raquo;', ['escape' => false]);
-echo $this->Html->tag('ul', implode('', $tags), ['class' => 'pagination pagination-sm no-margin pull-right']);
+echo $this->Paginator->numbers();
 $this->end();
 
 $this->start('page_counter');
