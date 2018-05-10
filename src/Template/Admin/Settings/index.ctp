@@ -20,7 +20,7 @@ $this->Breadcrumbs
 echo $this->Breadcrumbs->render();
 $this->end();
 
-$this->start('table-heading');
+$this->start('table-header');
 $tableHeaders = $this->Html->tableHeaders(array(
     $this->Paginator->sort('id', __d('croogo', 'Id')),
     $this->Paginator->sort('key', __d('croogo', 'Key')),
