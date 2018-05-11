@@ -36,17 +36,20 @@ $rows = [];
 foreach ($settings as $setting):
     $actions = [];
     $actions[] = $this->Html->link(__d('croogo', 'Move up'),
-        ['controller' => 'settings', 'action' => 'moveUp', $setting->id]
+        ['controller' => 'settings', 'action' => 'moveUp', $setting->id],
+        ['class' => 'btn btn-default btn-xs']
     );
     $actions[] = $this->Html->link(__d('croogo', 'Move down'),
-        ['controller' => 'settings', 'action' => 'moveDown', $setting->id]
+        ['controller' => 'settings', 'action' => 'moveDown', $setting->id],
+        ['class' => 'btn btn-default btn-xs']
     );
     $actions[] = $this->Html->link(__d('croogo', 'Edit this item'),
-        ['controller' => 'settings', 'action' => 'edit', $setting->id]
+        ['controller' => 'settings', 'action' => 'edit', $setting->id],
+        ['class' => 'btn btn-default btn-xs']
     );
     $actions[] = $this->Form->postLink(__d('croogo', 'Remove this item'),
         ['controller' => 'settings', 'action' => 'delete', $setting->id],
-        ['confirm' => __d('croogo', 'Are you sure?')]
+        ['confirm' => __d('croogo', 'Are you sure?'), 'class' => 'btn btn-danger btn-xs']
     );
 
     $key = $setting->key;
