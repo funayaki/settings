@@ -147,9 +147,9 @@ class SettingsController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $setting = $this->Settings->get($id);
         if ($this->Settings->delete($setting)) {
-            $this->Flash->success(__d('croogo', 'Setting deleted'));
+            $this->Flash->success(__d('croogo', 'The setting has been saved'));
         } else {
-            $this->Flash->error(__d('croogo', 'Could not delete'));
+            $this->Flash->error(__d('croogo', 'The setting could not be saved. Please, try again.'));
         }
 
         if (!$redirect = $this->referer()) {
