@@ -20,7 +20,9 @@ $this->Breadcrumbs
 echo $this->Breadcrumbs->render();
 $this->end();
 
-$this->assign('form-start', $this->Form->create($setting, ['novalidate' => true]));
+$this->assign('form-start', $this->Form->create($setting, [
+    'novalidate' => true
+]));
 
 $this->start('form-content');
 echo $this->Form->control('key', [
