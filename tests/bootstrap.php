@@ -7,12 +7,12 @@ use Croogo\Core\Plugin;
 $findVendor = function () {
     $root = dirname(dirname(dirname(dirname(dirname(__DIR__)))));
     if (is_dir($root . '/vendor/cakephp/cakephp')) {
-        return $root . DS. 'vendor' . DS;
+        return $root . DS . 'vendor' . DS;
     }
 };
 
 if (!defined('DS')) {
-	define('DS', DIRECTORY_SEPARATOR);
+    define('DS', DIRECTORY_SEPARATOR);
 }
 
 define('VENDOR', $findVendor());
@@ -38,12 +38,12 @@ require VENDOR . 'autoload.php';
 require CORE_PATH . 'config' . DS . 'bootstrap.php';
 
 Cake\Core\Configure::write('App', [
-	'namespace' => 'App',
-	'paths' => [
+    'namespace' => 'App',
+    'paths' => [
         'plugins' => [ROOT . DS . 'plugins' . DS],
         'templates' => [APP . 'Template' . DS],
         'locales' => [APP . 'Locale' . DS],
-	]
+    ]
 ]);
 Cake\Core\Configure::write('debug', true);
 
@@ -53,28 +53,28 @@ $TMP->create(TMP . 'cache/persistent', 0777);
 $TMP->create(TMP . 'cache/views', 0777);
 
 $cache = [
-	'default' => [
-		'engine' => 'File'
-	],
-	'_cake_core_' => [
-		'className' => 'File',
-		'prefix' => 'croogo_core_myapp_cake_core_',
-		'path' => CACHE . 'persistent/',
-		'serialize' => true,
-		'duration' => '+10 seconds'
-	],
-	'_cake_model_' => [
-		'className' => 'File',
-		'prefix' => 'croogo_core_my_app_cake_model_',
-		'path' => CACHE . 'models/',
-		'serialize' => 'File',
-		'duration' => '+10 seconds'
-	]
+    'default' => [
+        'engine' => 'File'
+    ],
+    '_cake_core_' => [
+        'className' => 'File',
+        'prefix' => 'croogo_core_myapp_cake_core_',
+        'path' => CACHE . 'persistent/',
+        'serialize' => true,
+        'duration' => '+10 seconds'
+    ],
+    '_cake_model_' => [
+        'className' => 'File',
+        'prefix' => 'croogo_core_my_app_cake_model_',
+        'path' => CACHE . 'models/',
+        'serialize' => 'File',
+        'duration' => '+10 seconds'
+    ]
 ];
 
 Cake\Cache\Cache::config($cache);
 Cake\Core\Configure::write('Session', [
-	'defaults' => 'php'
+    'defaults' => 'php'
 ]);
 
 // Ensure default test connection is defined

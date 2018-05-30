@@ -1,10 +1,11 @@
 <?php
 
-namespace Croogo\Settings\Model\Table;
+namespace Settings\Model\Table;
 
 use Cake\ORM\Entity;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
+use Cake\ORM\Table;
 use Cake\Validation\Validator;
 use Croogo\Core\Model\Table\CroogoTable;
 
@@ -18,12 +19,12 @@ use Croogo\Core\Model\Table\CroogoTable;
  * @license  http://www.opensource.org/licenses/mit-license.php The MIT License
  * @link     http://www.croogo.org
  */
-class LanguagesTable extends CroogoTable
+class LanguagesTable extends Table
 {
 
-/**
- * Initialize
- */
+    /**
+     * Initialize
+     */
     public function initialize(array $config)
     {
         parent::initialize($config);
@@ -61,7 +62,7 @@ class LanguagesTable extends CroogoTable
             ->add($rules->isUnique(['locale'],
                 __d('croogo', 'That locale is already taken')
             ))
-            ->add($rules->isUnique( ['alias'],
+            ->add($rules->isUnique(['alias'],
                 __d('croogo', 'That alias is already taken')
             ));
         return $rules;

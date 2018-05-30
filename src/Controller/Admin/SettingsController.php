@@ -1,6 +1,6 @@
 <?php
 
-namespace Croogo\Settings\Controller\Admin;
+namespace Settings\Controller\Admin;
 
 use Cake\Event\Event;
 use Cake\Utility\Inflector;
@@ -8,6 +8,7 @@ use Cake\Utility\Inflector;
 /**
  * Settings Controller
  *
+ * @property \Settings\Model\Table\SettingsTable $Settings
  * @category Settings.Controller
  * @package  Croogo.Settings
  * @version  1.0
@@ -38,13 +39,13 @@ class SettingsController extends AppController
         }
     }
 
-/**
- * Admin prefix
- *
- * @param string $prefix
- * @return void
- * @access public
- */
+    /**
+     * Admin prefix
+     *
+     * @param string $prefix
+     * @return \Cake\Http\Response|null
+     * @access public
+     */
     public function prefix($prefix = null)
     {
         if ($this->request->is('post')) {
@@ -111,17 +112,19 @@ class SettingsController extends AppController
         return $value;
     }
 
-/**
- * Admin moveup
- *
- * @param int $id
- * @param int $step
- * @return void
- * @access public
- */
+    /**
+     * TODO Delegate action to Crud.Crud
+     * Admin moveup
+     *
+     * @param int $id
+     * @param int $step
+     * @return \Cake\Http\Response|null
+     * @access public
+     */
     public function moveup($id, $step = 1)
     {
-        if ($this->Setting->moveUp($id, $step)) {
+        $setting = $this->Settings->get($id);
+        if ($this->Settings->moveUp($setting)) {
             $this->Flash->success(__d('croogo', 'Moved up successfully'));
         } else {
             $this->Flash->error(__d('croogo', 'Could not move up'));
@@ -129,7 +132,7 @@ class SettingsController extends AppController
 
         if (!$redirect = $this->referer()) {
             $redirect = [
-                'admin' => true,
+                'prefix' => 'admin',
                 'plugin' => 'settings',
                 'controller' => 'settings',
                 'action' => 'index'
@@ -138,22 +141,37 @@ class SettingsController extends AppController
         return $this->redirect($redirect);
     }
 
-/**
- * Admin moveup
- *
- * @param int $id
- * @param int $step
- * @return void
- * @access public
- */
+    /**
+     * TODO Delegate action to Crud.Crud
+     * Admin moveup
+     *
+     * @param int $id
+     * @param int $step
+     * @return \Cake\Http\Response|null
+     * @access public
+     */
     public function movedown($id, $step = 1)
     {
-        if ($this->Setting->moveDown($id, $step)) {
+        $setting = $this->Settings->get($id);
+        if ($this->Settings->moveDown($setting)) {
             $this->Flash->success(__d('croogo', 'Moved down successfully'));
         } else {
             $this->Flash->error(__d('croogo', 'Could not move down'));
         }
 
-        return $this->redirect(['admin' => true, 'controller' => 'settings', 'action' => 'index']);
+        return $this->redirect(['prefix' => 'admin', 'controller' => 'settings', 'action' => 'index']);
+    }
+
+    /**
+     * TODO Delegate action to Crud.Crud
+     */
+    public function index()
+    {
+        $query = $this->Settings
+            ->find('search', ['search' => $this->request->getQueryParams()])
+            ->contain([]);
+        $settings = $this->paginate($query);
+
+        $this->set(compact('settings'));
     }
 }

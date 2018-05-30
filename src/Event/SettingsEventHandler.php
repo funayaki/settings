@@ -1,6 +1,6 @@
 <?php
 
-namespace Croogo\Settings\Event;
+namespace Settings\Event;
 
 use Cake\Event\EventListenerInterface;
 
@@ -15,9 +15,9 @@ use Cake\Event\EventListenerInterface;
 class SettingsEventHandler implements EventListenerInterface
 {
 
-/**
- * implementedEvents
- */
+    /**
+     * implementedEvents
+     */
     public function implementedEvents()
     {
         return [];

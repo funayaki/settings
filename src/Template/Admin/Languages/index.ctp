@@ -1,9 +1,12 @@
 <?php
-
-$this->extend('Croogo/Core./Common/admin_index');
+/**
+ * @var \App\View\AppView $this
+ * @var \Settings\Model\Entity\Language[]|\Cake\Collection\CollectionInterface $languages
+ */
+$this->extend('Cirici/AdminLTE./Common/index');
 
 $this->Breadcrumbs->add(__d('croogo', 'Settings'),
-    ['plugin' => 'Croogo/Settings', 'controller' => 'Settings', 'action' => 'prefix', 'Site'])
+    ['plugin' => 'Settings', 'controller' => 'Settings', 'action' => 'prefix', 'Site'])
     ->add(__d('croogo', 'Languages'), $this->request->getUri()->getPath());
 
 $tableHeaders = $this->Html->tableHeaders([
@@ -14,21 +17,27 @@ $tableHeaders = $this->Html->tableHeaders([
     $this->Paginator->sort('status', __d('croogo', 'Status')),
     __d('croogo', 'Actions'),
 ]);
-$this->append('table-heading', $tableHeaders);
+$this->append('table-header', $tableHeaders);
 
 $rows = [];
 foreach ($languages as $language) {
     $actions = [];
-    $actions[] = $this->Croogo->adminRowActions($language->id);
-    $actions[] = $this->Croogo->adminRowAction('', ['action' => 'moveUp', $language->id],
-        ['icon' => $this->Theme->getIcon('move-up'), 'tooltip' => __d('croogo', 'Move up')]);
-    $actions[] = $this->Croogo->adminRowAction('', ['action' => 'moveDown', $language->id],
-        ['icon' => $this->Theme->getIcon('move-down'), 'tooltip' => __d('croogo', 'Move down')]);
-    $actions[] = $this->Croogo->adminRowAction('', ['action' => 'edit', $language->id],
-        ['icon' => $this->Theme->getIcon('update'), 'tooltip' => __d('croogo', 'Edit this item')]);
-    $actions[] = $this->Croogo->adminRowAction('', ['action' => 'delete', $language->id],
-        ['icon' => $this->Theme->getIcon('delete'), 'tooltip' => __d('croogo', 'Remove this item')],
-        __d('croogo', 'Are you sure?'));
+    $actions[] = $this->Html->link(__d('croogo', 'Move up'),
+        ['action' => 'moveUp', $language->id],
+        ['class' => 'btn btn-default btn-xs']
+    );
+    $actions[] = $this->Html->link(__d('croogo', 'Move down'),
+        ['action' => 'moveDown', $language->id],
+        ['class' => 'btn btn-default btn-xs']
+    );
+    $actions[] = $this->Html->link(__d('croogo', 'Edit this item'),
+        ['action' => 'edit', $language->id],
+        ['class' => 'btn btn-default btn-xs']
+    );
+    $actions[] = $this->Form->postLink(__d('croogo', 'Remove this item'),
+        ['action' => 'delete', $language->id],
+        ['class' => 'btn btn-danger btn-xs', 'confirm' => __d('croogo', 'Are you sure?')]
+    );
 
     $actions = $this->Html->div('item-actions', implode(' ', $actions));
 
@@ -37,9 +46,13 @@ foreach ($languages as $language) {
         $language->native,
         $language->alias,
         $language->locale,
-        $this->Html->status($language->status),
-        $actions,
+        $language->status ? $this->Html->tag('span', '', ['class' => 'glyphicon glyphicon-ok']) : '',
+        [$actions, ['style' => 'white-space:nowrap']],
     ];
 }
 
 $this->append('table-body', $this->Html->tableCells($rows));
+
+$this->start('page-numbers');
+echo $this->Paginator->numbers();
+$this->end();

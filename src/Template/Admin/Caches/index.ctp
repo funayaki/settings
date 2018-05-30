@@ -1,30 +1,34 @@
 <?php
+/**
+ * @var \App\View\AppView $this
+ */
 
 use Cake\Core\App;
-$this->extend('Croogo/Core./Common/admin_index');
+
+$this->extend('Cirici/AdminLTE./Common/index');
 
 $clearUrl = [
     'prefix' => 'admin',
-    'plugin' => 'Croogo/Settings',
+    'plugin' => 'Settings',
     'controller' => 'Caches',
     'action' => 'clear',
 ];
 
 $this->Breadcrumbs->add(__d('croogo', 'Settings'),
-    ['plugin' => 'Croogo/Settings', 'controller' => 'Settings', 'action' => 'prefix', 'Site'])
+    ['plugin' => 'Settings', 'controller' => 'Settings', 'action' => 'prefix', 'Site'])
     ->add(__d('croogo', 'Caches'), $this->request->getUri()->getPath());
 
-$this->append('action-buttons');
-    echo $this->Croogo->adminAction(__d('croogo', 'Clear All'), array_merge(
-            $clearUrl, ['config' => 'all']
-        ), [
-        'method' => 'post',
-        'tooltip' => [
-            'data-title' => __d('croogo', 'Clear all cache'),
-            'data-placement' => 'left',
-        ],
-    ]);
-$this->end();
+//$this->append('action-buttons');
+//echo $this->Croogo->adminAction(__d('croogo', 'Clear All'), array_merge(
+//    $clearUrl, ['config' => 'all']
+//), [
+//    'method' => 'post',
+//    'tooltip' => [
+//        'data-title' => __d('croogo', 'Clear all cache'),
+//        'data-placement' => 'left',
+//    ],
+//]);
+//$this->end();
 
 $tableHeaders = $this->Html->tableHeaders([
     $this->Paginator->sort('title', __d('croogo', 'Cache')),
@@ -32,22 +36,15 @@ $tableHeaders = $this->Html->tableHeaders([
     __d('croogo', 'Duration'),
     __d('croogo', 'Actions')
 ]);
-$this->append('table-heading', $tableHeaders);
+$this->append('table-header', $tableHeaders);
 
 $rows = [];
 foreach ($caches as $cache => $engine):
     $actions = [];
-    $actions[] = $this->Croogo->adminAction('',
-        array_merge($clearUrl, ['config' => $cache]), [
-        'button' => false,
-        'class' => 'red',
-        'icon' => 'delete',
-        'method' => 'post',
-        'tooltip' => [
-            'data-title' => __d('croogo', 'Clear cache: %s', $cache),
-            'data-placement' => 'left',
-        ],
-    ]);
+    $actions[] = $this->Html->link(__d('croogo', 'Clear cache: %s', $cache),
+        array_merge($clearUrl, ['config' => $cache]),
+        ['class' => 'btn btn-danger btn-xs', 'confirm' => __d('croogo', 'Are you sure?')]
+    );
     $actions = $this->Html->div('item-actions', implode(' ', $actions));
 
     $rows[] = [

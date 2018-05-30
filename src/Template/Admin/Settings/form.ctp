@@ -1,9 +1,14 @@
 <?php
-$this->extend('Croogo/Core./Common/admin_edit');
+/**
+ * @var \App\View\AppView $this
+ * @var \Settings\Model\Entity\Setting $setting
+ */
+
+$this->extend('Cirici/AdminLTE./Common/form');
 
 $this->Breadcrumbs
     ->add(__d('croogo', 'Settings'), [
-        'plugin' => 'Croogo/Settings',
+        'plugin' => 'Settings',
         'controller' => 'Settings',
         'action' => 'index',
     ]);
@@ -17,33 +22,35 @@ if ($this->request->param('action') == 'add') {
 }
 
 $this->append('form-start', $this->Form->create($setting, [
-    'class' => 'protected-form',
+    'novalidate' => true,
 ]));
 
-$this->start('tab-heading');
-echo $this->Croogo->adminTab(__d('croogo', 'Settings'), '#setting-basic');
-echo $this->Croogo->adminTab(__d('croogo', 'Misc'), '#setting-misc');
-$this->end();
+//$this->start('table-header');
+//echo $this->Croogo->adminTab(__d('croogo', 'Settings'), '#setting-basic');
+//echo $this->Croogo->adminTab(__d('croogo', 'Misc'), '#setting-misc');
+//$this->end();
 
-$this->start('tab-content');
-echo $this->Html->tabStart('setting-basic') . $this->Form->input('key', [
+$this->start('form-content');
+echo $this->Form->control('key', [
         'help' => __d('croogo', "e.g., 'Site.title'"),
         'label' => __d('croogo', 'Key'),
-    ]) . $this->Form->input('value', [
+    ]) . $this->Form->control('value', [
         'label' => __d('croogo', 'Value'),
-    ]) . $this->Html->tabEnd();
-
-echo $this->Html->tabStart('setting-misc') . $this->Form->input('title', [
+    ]) . $this->Form->control('title', [
         'label' => __d('croogo', 'Title'),
-    ]) . $this->Form->input('description', [
+    ]) . $this->Form->control('description', [
         'label' => __d('croogo', 'Description'),
-    ]) . $this->Form->input('input_type', [
+    ]) . $this->Form->control('input_type', [
         'label' => __d('croogo', 'Input Type'),
         'help' => __d('croogo', "e.g., 'text' or 'textarea'"),
-    ]) . $this->Form->input('editable', [
+    ]) . $this->Form->control('editable', [
         'label' => __d('croogo', 'Editable'),
-    ]) . $this->Form->input('params', [
+    ]) . $this->Form->control('params', [
         'label' => __d('croogo', 'Params'),
-    ]) . $this->Html->tabEnd();
+    ]);
 
 $this->end();
+
+$this->assign('form-button', $this->Form->button(__d('croogo', 'Submit')));
+
+$this->assign('form-end', $this->Form->end());

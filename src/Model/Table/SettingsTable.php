@@ -1,6 +1,6 @@
 <?php
 
-namespace Croogo\Settings\Model\Table;
+namespace Settings\Model\Table;
 
 use ArrayObject;
 
@@ -10,13 +10,13 @@ use Cake\Datasource\EntityInterface;
 use Cake\Event\Event;
 use Cake\Form\Schema;
 use Cake\ORM\RulesChecker;
+use Cake\ORM\Table;
 use Cake\Validation\Validator;
-use Croogo\Acl\AclGenerator;
-use Croogo\Core\Model\Table\CroogoTable;
 
 /**
  * Setting
  *
+ * @mixin \Search\Model\Behavior\SearchBehavior
  * @category Model
  * @package  Croogo.Settings.Model
  * @version  1.0
@@ -25,7 +25,7 @@ use Croogo\Core\Model\Table\CroogoTable;
  * @link     http://www.croogo.org
  * @method \Cake\ORM\Query findByKey(string $key)
  */
-class SettingsTable extends CroogoTable
+class SettingsTable extends Table
 {
 
     public function validationDefault(Validator $validator)
@@ -38,15 +38,15 @@ class SettingsTable extends CroogoTable
     public function buildRules(RulesChecker $rules)
     {
         $rules
-            ->add($rules->isUnique( ['key'],
+            ->add($rules->isUnique(['key'],
                 __d('croogo', 'That key is already taken')
             ));
         return $rules;
     }
 
-/**
- * @param array $config
- */
+    /**
+     * @param array $config
+     */
     public function initialize(array $config)
     {
         parent::initialize($config);
@@ -62,6 +62,9 @@ class SettingsTable extends CroogoTable
             ],
         ]);
         $this->addBehavior('Search.Search');
+        $this->addBehavior('ADmad/Sequence.Sequence', [
+            'order' => 'weight',
+        ]);
 
         $this->searchManager()
             ->add('key', 'Search.Like', [
@@ -70,47 +73,40 @@ class SettingsTable extends CroogoTable
             ]);
     }
 
-/**
- * @param Table $schema
- * @return Table
- */
+    /**
+     * @param TableSchema $schema
+     * @return TableSchema
+     */
     protected function _initializeSchema(TableSchema $schema)
     {
-        $schema->columnType('params', 'params');
+//        $schema->columnType('params', 'params');
         return $schema;
     }
 
-/**
- * beforeSave callback
- */
+    /**
+     * beforeSave callback
+     */
     public function beforeSave()
     {
-        $this->connection()->driver()->autoQuoting(true);
+        $this->getConnection()->driver()->autoQuoting(true);
     }
 
-/**
- * afterSave callback
- */
+    /**
+     * afterSave callback
+     */
     public function afterSave(Event $event, EntityInterface $entity, ArrayObject $options)
     {
-
-        $this->connection()->driver()->autoQuoting(false);
-        if ($entity->key == 'Access Control.rowLevel') {
-            if ($entity->value == true && $entity->_original['value'] == false) {
-                $aclGenerator = new AclGenerator();
-                $aclGenerator->syncContentAcos();
-            }
-        }
+        $this->getConnection()->driver()->autoQuoting(false);
     }
 
-/**
- * Creates a new record with key/value pair if key does not exist.
- *
- * @param string $key
- * @param string $value
- * @param array $options
- * @return boolean
- */
+    /**
+     * Creates a new record with key/value pair if key does not exist.
+     *
+     * @param string $key
+     * @param string $value
+     * @param array $options
+     * @return boolean
+     */
     public function write($key, $value, $options = [])
     {
         $setting = $this->findByKey($key)->first();
@@ -153,12 +149,12 @@ class SettingsTable extends CroogoTable
         }
     }
 
-/**
- * Deletes setting record for given key
- *
- * @param string $key
- * @return boolean
- */
+    /**
+     * Deletes setting record for given key
+     *
+     * @param string $key
+     * @return boolean
+     */
     public function deleteKey($key)
     {
         $setting = $this->findByKey($key)->first();

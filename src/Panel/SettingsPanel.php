@@ -1,6 +1,6 @@
 <?php
 
-namespace Croogo\Settings\Panel;
+namespace Settings\Panel;
 
 use Cake\Core\Configure;
 use DebugKit\DebugPanel;

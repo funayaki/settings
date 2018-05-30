@@ -1,6 +1,6 @@
 <?php
 
-namespace Croogo\Settings\Controller\Admin;
+namespace Settings\Controller\Admin;
 
 use Cake\Cache\Cache;
 use Croogo\Core\Event\EventManager;

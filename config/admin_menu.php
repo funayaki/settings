@@ -1,6 +1,6 @@
 <?php
 
-namespace Croogo\Settings\Config;
+namespace Settings\Config;
 
 use Croogo\Core\Nav;
 

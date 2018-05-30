@@ -1,11 +1,15 @@
 <?php
+/**
+ * @var \App\View\AppView $this
+ * @var \Settings\Model\Entity\Setting[]|\Cake\Collection\CollectionInterface $settings
+ */
 
 use Cake\Utility\Inflector;
 
-$this->extend('Croogo/Core./Common/admin_edit');
+$this->extend('Cirici/AdminLTE./Common/form');
 
 $this->Breadcrumbs->add(__d('croogo', 'Settings'),
-    ['plugin' => 'Croogo/Settings', 'controller' => 'Settings', 'action' => 'index'])
+    ['plugin' => 'Settings', 'controller' => 'Settings', 'action' => 'index'])
     ->add($prefix, $this->request->getRequestTarget());
 
 $this->assign('form-start', $this->Form->create(null, [
@@ -13,12 +17,12 @@ $this->assign('form-start', $this->Form->create(null, [
     'type' => 'file',
 ]));
 
-$this->append('tab-heading');
-echo $this->Croogo->adminTab($prefix, '#settings-main');
-$this->end();
+//$this->append('tab-heading');
+//echo $this->Croogo->adminTab($prefix, '#settings-main');
+//$this->end();
 
-$this->append('tab-content');
-echo $this->Html->tabStart('settings-main');
+$this->append('form-content');
+//echo $this->Html->tabStart('settings-main');
 foreach ($settings as $setting) :
     if (!empty($setting->params['tab'])) {
         continue;
@@ -31,11 +35,15 @@ foreach ($settings as $setting) :
     echo $this->SettingsForm->input($setting, $label);
 endforeach;
 
-echo $this->Html->tabEnd();
+//echo $this->Html->tabEnd();
 $this->end();
 
-$this->start('buttons');
-    echo $this->Html->beginBox(__d('croogo', 'Publishing'));
-    echo $this->element('Croogo/Core.admin/buttons', ['applyText' => false]);
-    echo $this->Html->endBox();
-$this->end();
+//$this->start('buttons');
+//    echo $this->Html->beginBox(__d('croogo', 'Publishing'));
+//    echo $this->element('Croogo/Core.admin/buttons', ['applyText' => false]);
+//    echo $this->Html->endBox();
+//$this->end();
+
+$this->assign('form-button', $this->Form->button(__d('croogo', 'Submit')));
+
+$this->assign('form-end', $this->Form->end());

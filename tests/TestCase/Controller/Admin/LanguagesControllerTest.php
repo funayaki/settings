@@ -1,6 +1,6 @@
 <?php
 
-namespace Croogo\Settings\Test\TestCase\Controller\Admin;
+namespace Settings\Test\TestCase\Controller\Admin;
 
 use Cake\ORM\TableRegistry;
 use Croogo\Core\TestSuite\IntegrationTestCase;
@@ -98,11 +98,11 @@ class LanguagesControllerTest extends IntegrationTestCase
         $this->assertFalse($language);
     }
 
-/**
- * testAdminMoveUp
- *
- * @return void
- */
+    /**
+     * testAdminMoveUp
+     *
+     * @return void
+     */
     public function testAdminMoveUp()
     {
         $id = $this->_addLanguages();
@@ -171,11 +171,11 @@ class LanguagesControllerTest extends IntegrationTestCase
         ], $list);
     }
 
-/**
- * testAdminSelect
- *
- * @return void
- */
+    /**
+     * testAdminSelect
+     *
+     * @return void
+     */
     public function testAdminSelect()
     {
         $this->markTestIncomplete('Still being ported');

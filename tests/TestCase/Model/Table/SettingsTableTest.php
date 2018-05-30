@@ -1,11 +1,11 @@
 <?php
-namespace Croogo\Settings\Test\TestCase\Model;
+namespace Settings\Test\TestCase\Model;
 
 use Cake\ORM\TableRegistry;
 use Croogo\Core\TestSuite\TestCase;
 
 /**
- * @property \Croogo\Settings\Model\Table\SettingsTable Settings
+ * @property \Settings\Model\Table\SettingsTable Settings
  */
 class SettingsTableTest extends TestCase
 {

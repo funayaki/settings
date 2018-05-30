@@ -2,7 +2,9 @@
 
 use Cake\Core\Configure;
 use Cake\Cache\Cache;
-use Croogo\Core\Croogo;
+use Cake\Core\Plugin;
+
+Plugin::load('Search');
 
 Configure::write(
     'DebugKit.panels',
@@ -11,8 +13,8 @@ Configure::write(
     ])
 );
 
-Croogo::hookComponent('*', [
-    'SettingsComponent' => [
-        'className' => 'Croogo/Settings.Settings'
-    ]
-]);
+//Croogo::hookComponent('*', [
+//    'SettingsComponent' => [
+//        'className' => 'Croogo/Settings.Settings'
+//    ]
+//]);

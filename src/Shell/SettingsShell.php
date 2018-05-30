@@ -1,6 +1,6 @@
 <?php
 
-namespace Croogo\Settings\Shell;
+namespace Settings\Shell;
 
 use Cake\Console\Shell;
 use Croogo\Core\Plugin;
@@ -198,12 +198,12 @@ class SettingsShell extends Shell
         }
     }
 
-/**
- * Delete setting
- *
- * @param string $key
- * @return void
- */
+    /**
+     * Delete setting
+     *
+     * @param string $key
+     * @return void
+     */
     public function delete()
     {
         $key = $this->args[0];
@@ -227,9 +227,9 @@ class SettingsShell extends Shell
         }
     }
 
-/**
- * Update Croogo.version in settings
- */
+    /**
+     * Update Croogo.version in settings
+     */
     public function updateVersionInfo()
     {
         $gitDir = realpath(Plugin::path('Croogo/Core') . '..') . DS . '.git';
@@ -254,9 +254,9 @@ class SettingsShell extends Shell
         }
     }
 
-/**
- * Update Croogo.appVersion in settings
- */
+    /**
+     * Update Croogo.appVersion in settings
+     */
     public function updateAppVersionInfo()
     {
         $gitDir = realpath(ROOT . DS . '.git');

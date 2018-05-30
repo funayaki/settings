@@ -1,8 +1,11 @@
 {
-    "name": "croogo/settings",
+    "name": "funayaki/settings",
     "description": "Croogo Settings Plugin",
     "require": {
-        "croogo/core": "^3.0.1"
+        "croogo/core": "^3.0.1",
+        "admad/cakephp-sequence": "^2.2",
+        "friendsofcake/search": "^4.4",
+        "friendsofcake/crud": "^5.4"
     },
     "license": "MIT",
     "authors": [
@@ -14,8 +17,7 @@
     "type": "cakephp-plugin",
     "autoload": {
         "psr-4": {
-            "Croogo\\Settings\\": "src"
+            "Settings\\": "src"
         }
-    },
-    "minimum-stability": "dev"
+    }
 }

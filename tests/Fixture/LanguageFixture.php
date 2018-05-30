@@ -1,6 +1,6 @@
 <?php
 
-namespace Croogo\Settings\Test\Fixture;
+namespace Settings\Test\Fixture;
 
 use Croogo\Core\TestSuite\CroogoTestFixture;
 
