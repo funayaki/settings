@@ -72,3 +72,10 @@ $this->end();
 $this->start('page-numbers');
 echo $this->Paginator->numbers();
 $this->end();
+
+$this->append('header-actions');
+echo $this->Html->link(__d('croogo', 'New Setting'),
+    ['action' => 'add'],
+    ['class' => 'btn btn-default pull-right']
+);
+$this->end();
