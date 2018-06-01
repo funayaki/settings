@@ -14,8 +14,7 @@ $clearUrl = [
     'action' => 'clear',
 ];
 
-$this->Breadcrumbs->add(__d('croogo', 'Settings'),
-    ['plugin' => 'Settings', 'controller' => 'Settings', 'action' => 'prefix', 'Site'])
+$this->Breadcrumbs
     ->add(__d('croogo', 'Caches'), $this->request->getUri()->getPath());
 
 //$this->append('action-buttons');

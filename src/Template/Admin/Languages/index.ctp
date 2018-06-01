@@ -5,8 +5,7 @@
  */
 $this->extend('Cirici/AdminLTE./Common/index');
 
-$this->Breadcrumbs->add(__d('croogo', 'Settings'),
-    ['plugin' => 'Settings', 'controller' => 'Settings', 'action' => 'prefix', 'Site'])
+$this->Breadcrumbs
     ->add(__d('croogo', 'Languages'), $this->request->getUri()->getPath());
 
 $tableHeaders = $this->Html->tableHeaders([
