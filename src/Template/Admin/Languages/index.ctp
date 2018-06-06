@@ -56,3 +56,10 @@ $this->append('table-body', $this->Html->tableCells($rows));
 $this->start('page-numbers');
 echo $this->Paginator->numbers();
 $this->end();
+
+$this->append('header-actions');
+echo $this->Html->link(__d('croogo', 'New Language'),
+    ['action' => 'add'],
+    ['class' => 'btn btn-default pull-right']
+);
+$this->end();
