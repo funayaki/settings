@@ -14,8 +14,7 @@ $clearUrl = [
     'action' => 'clear',
 ];
 
-$this->Breadcrumbs->add(__d('croogo', 'Settings'),
-    ['plugin' => 'Settings', 'controller' => 'Settings', 'action' => 'prefix', 'Site'])
+$this->Breadcrumbs
     ->add(__d('croogo', 'Caches'), $this->request->getUri()->getPath());
 
 //$this->append('action-buttons');
@@ -41,7 +40,7 @@ $this->append('table-header', $tableHeaders);
 $rows = [];
 foreach ($caches as $cache => $engine):
     $actions = [];
-    $actions[] = $this->Html->link(__d('croogo', 'Clear cache: %s', $cache),
+    $actions[] = $this->Html->link(__d('croogo', 'Clear cache: {0}', $cache),
         array_merge($clearUrl, ['config' => $cache]),
         ['class' => 'btn btn-danger btn-xs', 'confirm' => __d('croogo', 'Are you sure?')]
     );
